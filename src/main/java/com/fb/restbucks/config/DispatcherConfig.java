@@ -3,6 +3,9 @@ package com.fb.restbucks.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -12,13 +15,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages={"com.fb.restbucks.controllers"},excludeFilters={@Filter(Configuration.class)})
+@ComponentScan(basePackages={"com.fb.restbucks.controllers","com.fb.restbucks.aspects"},excludeFilters={@Filter(Configuration.class)})
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 public class DispatcherConfig extends WebMvcConfigurerAdapter {
 
@@ -37,4 +42,6 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
 	public DefaultAnnotationHandlerMapping handlerMapping(){
 		return new DefaultAnnotationHandlerMapping();
 	}
+
+
 }

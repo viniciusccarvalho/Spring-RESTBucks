@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
 
 import com.fb.restbucks.domain.Order;
+import com.fb.restbucks.exception.EntityNotFoundException;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -21,7 +22,28 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	public Order find(String id) {
-		return mongoOps.findById(id, Order.class);
+		Order o = mongoOps.findById(id, Order.class);
+		if(o==null){
+			throw new EntityNotFoundException();
+		}
+		return o;
+	}
+
+	public void remove(String id) {
+		Order o = mongoOps.findById(id, Order.class);
+		if(o==null){
+			throw new EntityNotFoundException();
+		}
+		mongoOps.remove(o);		
+	}
+
+	public Order update(Order order) {
+		Order o = mongoOps.findById(order.getId(), Order.class);
+		if(o==null){
+			throw new EntityNotFoundException();
+		}
+		mongoOps.save(order);
+		return order;
 	}
 	
 }
