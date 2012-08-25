@@ -1,0 +1,44 @@
+
+To install mongodb on ubuntu:
+
+1. Add the following to /etc/apt/sources.list
+
+#mongo repo ###############new line
+deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
+
+2. Get the required key
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10   
+
+3. Update your sources
+
+sudo apt-get update
+
+4. Install mongodb
+
+sudo apt-get install mongodb-10gen
+
+5. After ...
+
+MongoDB is installed, started, and auto start MongoDB script is generated to “/etc/init/mongo” 
+and “/etc/init.d/mongo“. In addition, all MongoDB files are copied to “/usr/bin” folder.
+
+6. Verify it is installed by running the mongo shell
+
+mongo
+
+7. To run Web server and test out Service
+
+mvn jetty:run
+
+8. Example POST - Content-Type = application/json
+
+{
+  "status" : "SERVED",
+  "items": [
+    {"milk":"SKIM","name":"mocha","quantity":1,"size":"LARGE"}
+  ]
+}
+
+*end* 
+
